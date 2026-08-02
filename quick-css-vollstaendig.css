@@ -1,0 +1,980 @@
+/* ============================================================
+   QUICK CSS – Burchardt & Kollegen
+   Einbau: Enfold → Allgemeine Formatierung → Quick CSS
+   Diese Datei ersetzt die komplette bisherige Quick-CSS-Datei.
+
+   Stand: 02.08.2026, 6. Fassung
+   Änderung gegenüber der Vorversion: Der breite Abwehrblock
+   "RECHNER: ÜBERSCHRIFTEN IM RAHMEN HALTEN" ist durch eine
+   präzise Punktkorrektur ersetzt, nachdem die Ursache gefunden
+   wurde (Child-Theme ditax style.css, Zeile 628: hängende
+   Überschriften auf Beitragsseiten). Alles übrige unverändert.
+   ============================================================ */
+
+/* ---- Datum-Hinweis unter Blogartikeln (z. B. "zuletzt aktualisiert am") ---- */
+p.post-last-modified {
+    font-style: italic;   /* kursiv, damit es sich vom normalen Text abhebt */
+    color: #7b7b7b;       /* gedämpftes Grau statt normalem Textschwarz */
+}
+
+
+/* === Landingpage 2878 Full Width ===
+   Hebt die normale Seitenbreite für genau eine Landingpage auf,
+   damit deren Inhalt bildschirmfüllend läuft statt in der Standard-Spalte. */
+.page-id-2878 .container {
+  max-width: 100% !important;   /* Standard-Maximalbreite des Theme aufheben */
+  width: 100% !important;       /* volle Breite erzwingen */
+  padding: 0 !important;        /* keinen Innenabstand links/rechts */
+}
+.page-id-2878 .av-main-page,
+.page-id-2878 .entry-content,
+.page-id-2878 .entry-content-wrapper {
+  max-width: 100% !important;   /* dieselbe Vollbreite auch für die Inhalts-Wrapper */
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;         /* keine automatischen Außenabstände */
+}
+
+/* === Button- & Icon-Farb-Fix für Landingpage 2878 === */
+.page-id-2878 .bc-btn-blau,
+.page-id-2878 .bc-btn-blau:link,
+.page-id-2878 .bc-btn-blau:visited,
+.page-id-2878 .bc-btn-blau:hover {
+  color: #ffffff !important;    /* weiße Schrift auf dem blauen Button, in jedem Link-Zustand */
+}
+.page-id-2878 .bc-btn-gelb,
+.page-id-2878 .bc-btn-gelb:link,
+.page-id-2878 .bc-btn-gelb:visited {
+  color: #1d2a4a !important;    /* dunkle Schrift auf dem gelben Button für genug Kontrast */
+}
+.page-id-2878 .bc-hero-bullets li::before {
+  /* eigenes Häkchen-Icon (weißer Haken) als Aufzählungszeichen der Hero-Bulletpoints */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") !important;
+  background-color: #3a5791 !important;   /* dunkelblauer Kreis hinter dem Haken */
+}
+.page-id-2878 .bc-proof-item svg,
+.page-id-2878 .bc-card-icon svg,
+.page-id-2878 .bc-usp-icon svg,
+.page-id-2878 .bc-success-circle svg {
+  color: inherit !important;        /* SVG übernimmt die Textfarbe des Elternelements */
+  stroke: currentColor !important;  /* Linienfarbe folgt derselben Textfarbe */
+}
+.page-id-2878 .bc-proof-item svg { color: #fbcf7b !important; }   /* Gold-Ton für Vertrauens-Icons */
+.page-id-2878 .bc-card-icon svg,
+.page-id-2878 .bc-usp-icon svg { color: #fbcf7b !important; }     /* derselbe Gold-Ton für Karten-/USP-Icons */
+
+
+/* Karten- und USP-Icon-Boxen: Grundmaße (line-height bleibt relevant für die
+   Höhe der Icon-Box; die tatsächlichen Icons kommen weiter unten als SVG-Hintergrundbild) */
+.page-id-2878 .bc-card-icon {
+  line-height: 1;
+}
+.page-id-2878 .bc-usp-icon {
+  line-height: 1;
+}
+
+/* Proof-Bar Checkmark-Box: Basisabstand (das Häkchen selbst kommt weiter
+   unten als SVG-Hintergrundbild) */
+.page-id-2878 .bc-proof-item::before {
+  flex-shrink: 0;
+}
+
+/* === Icon-Fix: SVG als CSS-Hintergrundbild ===
+   Ersetzt die Text-/Emoji-Platzhalter im ::before durch saubere,
+   einheitliche Strichzeichnungen (Inline-SVG als data:-URL, kein Bild-Upload nötig). */
+.page-id-2878 .bc-card-icon,
+.page-id-2878 .bc-usp-icon {
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 22px 22px !important;
+  font-size: 0 !important;         /* verhindert, dass ein eventueller Text-Inhalt noch Platz braucht */
+}
+.page-id-2878 .bc-card-icon::before,
+.page-id-2878 .bc-usp-icon::before { content: none !important; }   /* stellt sicher, dass ::before keinen eigenen Inhalt zeigt */
+
+/* Karten-Icons 1–6 als SVG, je Kachel ein eigenes Symbol */
+.page-id-2878 .bc-cards .bc-card:nth-child(1) .bc-card-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23fbcf7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'/%3E%3C/svg%3E") !important; }
+.page-id-2878 .bc-cards .bc-card:nth-child(2) .bc-card-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23fbcf7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'/%3E%3C/svg%3E") !important; }
+.page-id-2878 .bc-cards .bc-card:nth-child(3) .bc-card-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23fbcf7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'/%3E%3C/svg%3E") !important; }
+.page-id-2878 .bc-cards .bc-card:nth-child(4) .bc-card-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23fbcf7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'/%3E%3C/svg%3E") !important; }
+.page-id-2878 .bc-cards .bc-card:nth-child(5) .bc-card-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23fbcf7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z'/%3E%3C/svg%3E") !important; }
+.page-id-2878 .bc-cards .bc-card:nth-child(6) .bc-card-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23fbcf7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'/%3E%3C/svg%3E") !important; }
+
+/* USP-Icons 1–3 als SVG, je Listenpunkt ein eigenes Symbol */
+.page-id-2878 .bc-usp-list li:nth-child(1) .bc-usp-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23fbcf7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'/%3E%3C/svg%3E") !important; }
+.page-id-2878 .bc-usp-list li:nth-child(2) .bc-usp-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23fbcf7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z'/%3E%3C/svg%3E") !important; }
+.page-id-2878 .bc-usp-list li:nth-child(3) .bc-usp-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23fbcf7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z'/%3E%3C/svg%3E") !important; }
+
+/* Proof-Bar-Häkchen als SVG-Hintergrundbild statt Text-/Emoji-Zeichen */
+.page-id-2878 .bc-proof-item svg { display: none !important; }   /* eventuell vorhandenes SVG aus dem Markup ausblenden */
+.page-id-2878 .bc-proof-item::before {
+  content: '' !important;
+  display: inline-block !important;
+  width: 18px !important;
+  height: 18px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23fbcf7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") !important;   /* Haken-Icon als Bild */
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  flex-shrink: 0 !important;
+  margin-right: 2px !important;
+}
+
+/* === Anpassung Kartenhöhe auf der Startseite ===
+   Bringt die drei Enfold-Boxen auf gleiche Höhe, damit Buttons bündig sitzen. */
+.karte .avia_textblock{ min-height: 360px; }   /* Mindesthöhe am Desktop */
+@media (max-width: 767px){ .karte .avia_textblock{ min-height: 0; } }   /* am Handy keine Mindesthöhe, damit nichts unnötig leer bleibt */
+
+/* === Markenbasis: Schriften und Farb-Variablen ===
+   Einmal zentral geladen/definiert, danach überall per var(--bk-...) nutzbar. */
+@import url('https://fonts.googleapis.com/css2?family=Aleo:wght@300;400;700&family=Petrona:wght@400;500;600;800&display=swap');  /* lädt beide Marken-Schriftschnitte von Google Fonts */
+:root{
+  --bk-gold:#F7B234;       /* Gelb-Orange, Akzentfarbe */
+  --bk-blue:#0080C9;       /* kräftiges Blau, CI-Akzent */
+  --bk-darkblue:#3A5791;   /* Dunkelblau, für Überschriften */
+  --bk-red:#E94E1B;        /* Hellrot, für Aktions-Buttons */
+  --bk-text:#333333;       /* Anthrazit, Standard-Fließtext */
+}
+
+/* === Menü: die drei/vier Säulen fett darstellen ===
+   Das Sternchen (*) ist nötig, weil der sichtbare Text in einem
+   inneren <span> steckt – ohne "*" würde nur der äußere Link
+   fett, aber nicht der Text selbst. */
+.saeule > a,
+.saeule > a * {
+  font-weight: 700 !important;   /* fett, unabhängig davon, wo der Text im Markup sitzt */
+}
+
+
+/* ============================================================
+   LOHN-SEITEN – Zentrales Komponenten-System für alle bk-lohn-Seiten
+   (Lohnseiten, Heilberufe und künftige Unterseiten nutzen dieselben
+   Klassen – nicht umbenennen, sonst müssten Seiten dupliziert CSS haben)
+   ============================================================ */
+
+/* ---- Basis: Schrift, Farben, Grundraster ---- */
+.bk-lohn { font-family:'Aleo', Georgia, serif; color:#333333; line-height:1.65; }   /* Fließtext-Schrift und -Farbe für das gesamte System */
+.bk-lohn * { box-sizing:border-box; }   /* Innenabstand/Rahmen zählen zur angegebenen Breite, nicht zusätzlich dazu */
+.bk-lohn h1, .bk-lohn h2, .bk-lohn h3 { font-family:'Petrona', Georgia, serif; color:#3A5791; line-height:1.25; }   /* Überschriften-Schrift und -Farbe */
+.bk-lohn h2 { font-size:1.65em; font-weight:600; margin:0 0 8px; }
+.bk-lohn h3 { font-size:1.15em; font-weight:600; margin:0 0 10px; }
+.bk-lohn .bk-lohn-section { max-width:960px; margin:0 auto 56px; padding:0 20px; }   /* zentrierter Inhaltsblock mit fester Höchstbreite */
+.bk-lohn .bk-lohn-goldbar { width:64px; height:4px; background:#F7B234; border-radius:2px; margin:0 0 24px; }   /* kurzer goldener Trennstrich unter Zwischenüberschriften */
+
+/* ---- Hero (Blauverlauf mit Schräge, CI) ---- */
+.bk-lohn .bk-lohn-hero { background:linear-gradient(120deg,#3A5791 0%,#0080C9 100%); color:#fff; padding:70px 30px 90px; clip-path:polygon(0 0,100% 0,100% 92%,0 100%); margin-bottom:40px; }   /* clip-path erzeugt die schräge Unterkante */
+.bk-lohn .bk-lohn-hero-inner { max-width:900px; margin:0 auto; }
+.bk-lohn .bk-lohn-hero h1 { color:#fff; font-size:2.2em; font-weight:600; margin:0 0 18px; }
+.bk-lohn .bk-lohn-hero p { font-size:1.1em; max-width:740px; margin:0 0 14px; }
+
+/* ---- Buttons: drei Varianten ---- */
+.bk-lohn a.bk-lohn-btn-solid { display:inline-block; background:#E94E1B; color:#fff; font-family:'Petrona', Georgia, serif; font-weight:600; text-decoration:none; padding:13px 30px; border-radius:4px; transition:background .2s; }   /* Haupt-CTA: gefüllt, Hellrot */
+.bk-lohn a.bk-lohn-btn-solid:hover { background:#c93f12; color:#fff; }
+.bk-lohn a.bk-lohn-btn-outline { display:inline-block; border:2px solid #F7B234; color:#3A5791; font-family:'Petrona', Georgia, serif; font-weight:600; text-decoration:none; padding:10px 22px; border-radius:4px; transition:background .2s; }   /* sekundär: Gold-Outline */
+.bk-lohn a.bk-lohn-btn-outline:hover { background:#F7B234; color:#3A5791; }
+.bk-lohn a.bk-lohn-btn-gold { display:inline-block; background:#F7B234; color:#3A5791; font-family:'Petrona', Georgia, serif; font-weight:700; text-decoration:none; padding:13px 30px; border-radius:4px; transition:background .2s; }   /* dritte Variante: gefüllt Gold, für Foto-CTA-Bänder */
+.bk-lohn a.bk-lohn-btn-gold:hover { background:#fcd28a; color:#3A5791; }
+
+/* ---- Hub: Kacheln + Fakten-Boxen ---- */
+.bk-lohn .bk-lohn-tiles { display:flex; gap:22px; flex-wrap:wrap; }   /* Kachel-Reihe, bricht bei Platzmangel um */
+.bk-lohn .bk-lohn-tile { flex:1 1 280px; background:#fff; border:1px solid #e5e5e5; border-top:4px solid #F7B234; border-radius:6px; padding:28px 26px; box-shadow:0 2px 10px rgba(0,0,0,.06); display:flex; flex-direction:column; }   /* einzelne Kachel, mind. 280px breit */
+.bk-lohn .bk-lohn-tile h3 { font-size:1.2em; margin:0 0 12px; }
+.bk-lohn .bk-lohn-tile p { margin:0 0 22px; font-size:.97em; }
+.bk-lohn .bk-lohn-tile .bk-lohn-tilebtn { margin-top:auto; }   /* schiebt den Button ans untere Ende der Kachel, egal wie lang der Text ist */
+.bk-lohn .bk-lohn-facts { display:flex; gap:18px; flex-wrap:wrap; }
+.bk-lohn .bk-lohn-fact { flex:1 1 300px; background:#eaf5fc; border-radius:6px; padding:20px 22px; font-size:.96em; }   /* hellblaue Fakten-Box */
+.bk-lohn .bk-lohn-fact strong { font-family:'Petrona', Georgia, serif; color:#0080C9; display:block; margin-bottom:6px; }
+
+/* ---- Listen: Häkchen-Liste und Punkt-Liste ---- */
+.bk-lohn ul.bk-lohn-check { list-style:none; padding:0; margin:0; }
+.bk-lohn ul.bk-lohn-check li { padding:8px 0 8px 36px; position:relative; }
+.bk-lohn ul.bk-lohn-check li::before { content:"\2713"; position:absolute; left:0; top:8px; width:24px; height:24px; background:#F7B234; color:#3A5791; border-radius:50%; text-align:center; line-height:24px; font-weight:700; font-size:.85em; }   /* goldener Kreis mit Haken statt Standard-Bullet */
+.bk-lohn ul.bk-lohn-list { list-style:none; padding:0; margin:0; }
+.bk-lohn ul.bk-lohn-list li { padding:8px 0 8px 30px; position:relative; }
+.bk-lohn ul.bk-lohn-list li::before { content:""; position:absolute; left:6px; top:16px; width:10px; height:10px; background:#0080C9; border-radius:2px; }   /* kleines blaues Quadrat statt Standard-Bullet */
+.bk-lohn ul.bk-lohn-list strong { font-family:'Petrona', Georgia, serif; color:#3A5791; }
+
+/* ---- Hinweis- und Infoboxen ---- */
+.bk-lohn .bk-lohn-note { background:#fdeee8; border-left:4px solid #E94E1B; padding:14px 18px; border-radius:0 6px 6px 0; margin-top:18px; font-size:.98em; }   /* rötlicher Hinweiskasten mit Rand links */
+.bk-lohn .bk-lohn-box { background:#eaf5fc; border-radius:6px; padding:26px 28px; }   /* hellblauer Infokasten */
+.bk-lohn .bk-lohn-box h2 { margin-top:0; }
+
+/* ---- Nummerierte Schritte (z. B. Lebenszyklus-Phasen) ---- */
+.bk-lohn .bk-lohn-steps { counter-reset:bk-step; list-style:none; padding:0; margin:0; }   /* startet einen eigenen CSS-Zähler namens "bk-step" */
+.bk-lohn .bk-lohn-steps li { counter-increment:bk-step; position:relative; padding:0 0 26px 62px; }   /* zählt bei jedem Listenpunkt eins hoch */
+.bk-lohn .bk-lohn-steps li::before { content:counter(bk-step); position:absolute; left:0; top:0; width:42px; height:42px; background:#3A5791; color:#fff; border-radius:50%; text-align:center; line-height:42px; font-family:'Petrona', Georgia, serif; font-weight:700; font-size:1.15em; }   /* zeigt die Zähler-Nummer im blauen Kreis an */
+.bk-lohn .bk-lohn-steps li::after { content:""; position:absolute; left:20px; top:46px; bottom:4px; width:2px; background:#F7B234; }   /* dünne goldene Verbindungslinie zum nächsten Schritt */
+.bk-lohn .bk-lohn-steps li:last-child::after { display:none; }   /* beim letzten Schritt keine Linie mehr nach unten */
+.bk-lohn .bk-lohn-steps strong { font-family:'Petrona', Georgia, serif; color:#3A5791; display:block; margin-bottom:4px; }
+
+/* ---- Goldene Hervorhebungs-Blöcke (Brücke, Zusage/Pledge, Honorar) ---- */
+.bk-lohn .bk-lohn-bridge, .bk-lohn .bk-lohn-pledge, .bk-lohn .bk-lohn-fee { background:linear-gradient(120deg,#F7B234 0%,#fcd28a 100%); border-radius:6px; padding:30px 32px; }   /* gemeinsamer Gold-Verlauf-Hintergrund für alle drei Blocktypen */
+.bk-lohn .bk-lohn-bridge h2, .bk-lohn .bk-lohn-pledge h2, .bk-lohn .bk-lohn-fee h2 { margin:0 0 10px; }
+.bk-lohn .bk-lohn-bridge p { margin:0 0 20px; max-width:720px; }
+.bk-lohn .bk-lohn-pledge p { margin:0 0 12px; max-width:760px; }
+.bk-lohn .bk-lohn-pledge p:last-child { margin-bottom:0; }
+.bk-lohn .bk-lohn-fee p { margin:0; max-width:760px; }
+
+/* ---- Zwei-Wege-Vergleich (z. B. "Laufend" vs. "Anlassbezogen", Testimonial-Paare) ---- */
+.bk-lohn .bk-lohn-ways { display:flex; gap:20px; flex-wrap:wrap; }
+.bk-lohn .bk-lohn-way { flex:1 1 320px; background:#fff; border:1px solid #e5e5e5; border-radius:6px; padding:26px; box-shadow:0 2px 10px rgba(0,0,0,.06); }
+.bk-lohn .bk-lohn-way-primary { border-top:4px solid #F7B234; }     /* goldener oberer Rand für die erste Karte */
+.bk-lohn .bk-lohn-way-secondary { border-top:4px solid #0080C9; }   /* blauer oberer Rand für die zweite Karte */
+.bk-lohn .bk-lohn-way .bk-lohn-tag { display:inline-block; font-size:.75em; font-family:'Petrona', Georgia, serif; font-weight:600; letter-spacing:.05em; text-transform:uppercase; background:#F7B234; color:#3A5791; border-radius:3px; padding:3px 10px; margin-bottom:12px; }   /* kleines Schlagwort-Label oben in der Karte */
+.bk-lohn .bk-lohn-way-secondary .bk-lohn-tag { background:#eaf5fc; color:#0080C9; }   /* Label in der zweiten Karte in Blau statt Gold */
+
+/* ---- Chips (z. B. Gehaltsbausteine) ---- */
+.bk-lohn .bk-lohn-chips { display:flex; flex-wrap:wrap; gap:10px; margin:0 0 22px; }
+.bk-lohn .bk-lohn-chip { background:#eaf5fc; color:#3A5791; border:1px solid #bfe0f3; border-radius:20px; padding:8px 16px; font-size:.92em; }   /* abgerundetes Schlagwort-Pill */
+
+/* ---- FAQ-Akkordeon (nutzt natives HTML <details>/<summary>) ---- */
+.bk-lohn details.bk-lohn-faq { background:#fff; border:1px solid #e5e5e5; border-radius:6px; margin-bottom:10px; overflow:hidden; }
+.bk-lohn details.bk-lohn-faq summary { cursor:pointer; padding:15px 44px 15px 18px; font-family:'Petrona', Georgia, serif; font-weight:600; color:#3A5791; list-style:none; position:relative; }
+.bk-lohn details.bk-lohn-faq summary::-webkit-details-marker { display:none; }   /* blendet den Standard-Pfeil von Chrome/Safari aus */
+.bk-lohn details.bk-lohn-faq summary::after { content:"+"; position:absolute; right:16px; top:50%; transform:translateY(-50%); color:#F7B234; font-size:1.5em; font-weight:700; }   /* eigenes Plus-Zeichen rechts */
+.bk-lohn details.bk-lohn-faq[open] summary::after { content:"\2212"; }   /* wird zum Minus, wenn die Frage geöffnet ist */
+.bk-lohn details.bk-lohn-faq[open] summary { border-bottom:1px solid #eee; }
+.bk-lohn details.bk-lohn-faq p { padding:14px 18px; margin:0; font-size:.97em; }
+
+/* ---- Abschluss-CTA-Bänder (Gold- und Blau-Variante) ---- */
+.bk-lohn .bk-lohn-cta { background:linear-gradient(120deg,#F7B234 0%,#fcd28a 100%); clip-path:polygon(0 8%,100% 0,100% 100%,0 100%); padding:70px 30px 60px; text-align:center; }   /* Gold-Variante mit Schräge oben */
+.bk-lohn .bk-lohn-cta h2 { margin:0 0 10px; }
+.bk-lohn .bk-lohn-cta p { max-width:640px; margin:0 auto 26px; }
+.bk-lohn .bk-lohn-cta-final { background:linear-gradient(120deg,#3A5791 0%,#0080C9 100%); clip-path:polygon(0 8%,100% 0,100% 100%,0 100%); padding:70px 30px 60px; text-align:center; color:#fff; }   /* Blau-Variante, meist ganz am Seitenende */
+.bk-lohn .bk-lohn-cta-final h2 { color:#fff; margin:0 0 10px; }
+.bk-lohn .bk-lohn-cta-final p { max-width:640px; margin:0 auto 26px; }
+.bk-lohn .bk-lohn-cta-inner { max-width:760px; margin:0 auto; display:flex; gap:28px; align-items:center; flex-wrap:wrap; text-align:left; }   /* Layout für Foto + Text nebeneinander (falls Foto vorhanden) */
+.bk-lohn .bk-lohn-cta-inner img { width:140px; height:140px; border-radius:50%; object-fit:cover; border:4px solid #F7B234; }   /* rundes Foto mit goldenem Rahmen */
+.bk-lohn .bk-lohn-cta-text { flex:1 1 380px; }
+
+/* ---- Interaktiver Rechner (aktuell: Lohnoptimierung) ---- */
+#bk-lo { font-family:'Aleo', Georgia, serif; color:#333333; max-width:860px; margin:0 auto; }
+#bk-lo .bk-lo-card { background:#fff; border:1px solid #e5e5e5; border-top:4px solid #F7B234; border-radius:6px; padding:28px; box-shadow:0 2px 10px rgba(0,0,0,.06); }
+#bk-lo h3.bk-lo-title { font-family:'Petrona', Georgia, serif; color:#3A5791; font-size:1.5em; margin:0 0 6px; font-weight:600; }
+#bk-lo .bk-lo-sub { margin:0 0 24px; font-size:.95em; }
+#bk-lo .bk-lo-sliders { display:flex; gap:32px; flex-wrap:wrap; margin-bottom:26px; }
+#bk-lo .bk-lo-slider { flex:1 1 280px; }
+#bk-lo .bk-lo-slider label { display:flex; justify-content:space-between; font-weight:700; margin-bottom:8px; font-size:.95em; }
+#bk-lo .bk-lo-slider label span.bk-lo-val { color:#0080C9; font-family:'Petrona', Georgia, serif; font-size:1.15em; }
+#bk-lo input[type=range] { width:100%; accent-color:#F7B234; cursor:pointer; }   /* färbt den Schieberegler selbst gold ein */
+#bk-lo .bk-lo-compare { display:flex; gap:16px; flex-wrap:wrap; }
+#bk-lo .bk-lo-col { flex:1 1 240px; border-radius:6px; padding:20px; }
+#bk-lo .bk-lo-col h4 { font-family:'Petrona', Georgia, serif; margin:0 0 12px; font-size:1.05em; font-weight:600; }
+#bk-lo .bk-lo-col-raise { background:#f4f4f4; border:1px solid #ddd; }        /* linke Spalte: klassische Gehaltserhöhung, neutral grau */
+#bk-lo .bk-lo-col-raise h4 { color:#333333; }
+#bk-lo .bk-lo-col-opti { background:#eaf5fc; border:1px solid #bfe0f3; }      /* rechte Spalte: optimierte Bausteine, hellblau hervorgehoben */
+#bk-lo .bk-lo-col-opti h4 { color:#0080C9; }
+#bk-lo .bk-lo-row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed rgba(0,0,0,.12); font-size:.93em; }
+#bk-lo .bk-lo-row:last-child { border-bottom:none; }
+#bk-lo .bk-lo-row strong { font-family:'Petrona', Georgia, serif; }
+#bk-lo .bk-lo-result { margin-top:20px; background:linear-gradient(135deg,#F7B234,#fcd28a); border-radius:6px; padding:22px 24px; text-align:center; }   /* Ergebnis-Kasten des Rechners, golden hervorgehoben */
+#bk-lo .bk-lo-result .bk-lo-result-label { font-size:.95em; color:#333333; margin:0 0 4px; }
+#bk-lo .bk-lo-result .bk-lo-result-value { font-family:'Petrona', Georgia, serif; font-weight:700; font-size:2em; color:#3A5791; margin:0; }
+#bk-lo .bk-lo-result .bk-lo-result-note { font-size:.85em; margin:6px 0 0; color:#333333; }
+#bk-lo .bk-lo-disclaimer { font-size:.78em; color:#777; margin-top:16px; line-height:1.5; }
+
+/* ---- Mobile Anpassungen für das bk-lohn-System ---- */
+@media (max-width:640px){
+  .bk-lohn .bk-lohn-hero { padding:46px 20px 66px; }   /* weniger Innenabstand im Hero am Handy */
+  .bk-lohn .bk-lohn-hero h1 { font-size:1.6em; }        /* kleinere Hero-Überschrift am Handy */
+  #bk-lo .bk-lo-card { padding:18px; }
+}
+
+
+/* === CSS für die Kontaktseite ===
+   Macht die Formularfelder sichtbar (waren vorher weiß auf weiß, siehe
+   gemeinsame Fehlersuche zum unsichtbaren Kontaktformular). */
+.avia_ajax_form input.text_input,
+.avia_ajax_form textarea.text_area,
+.avia_ajax_form select{
+  background-color:#ffffff !important;   /* weißer Feldhintergrund */
+  color:#333333 !important;              /* dunkle, lesbare Eingabeschrift */
+  border:1px solid #c9c9c9 !important;   /* sichtbarer grauer Rahmen um jedes Feld */
+}
+.avia_ajax_form label{
+  color:#333333 !important;              /* dunkle Beschriftung statt unsichtbarer heller Schrift */
+}
+
+/* === CSS für die Beweis-/Proof-Sektion (Startseiten-Testimonials) === */
+.bk-proof-card{background:#fff;border:1px solid #e6e6e6;border-top:4px solid #F7B234;border-radius:10px;padding:22px;min-height:260px;}   /* weiße Karte mit goldenem oberem Rand */
+.bk-proof-card p{font-family:'Aleo',serif;font-style:italic;color:#333;font-size:1rem;line-height:1.6;margin:0 0 14px;}   /* kursives Zitat */
+.bk-proof-card span{font-family:'Aleo',serif;font-weight:700;color:#3A5791;font-size:.95rem;display:block;}   /* fette Namenszeile unter dem Zitat */
+
+/* === CSS für die vier Säulen-Kacheln auf der Startseite === */
+.bk-tile{display:flex;flex-direction:column;height:100%;}   /* Kachel füllt die Höhe ihrer Enfold-Spalte, statt eine feste (zu große) Mindesthöhe zu erzwingen -> kein Leerfeld mehr */
+.bk-tile h3{font-family:'Petrona',serif;font-weight:600;color:#fff;font-size:1.3rem;margin:0 0 12px;}   /* weiße Überschrift, da Kachel auf blauem Hintergrund liegt */
+.bk-tile p{font-family:'Aleo',serif;color:#eaf1f8;font-size:1rem;line-height:1.55;margin:0 0 20px;}      /* leicht abgetönte helle Schrift für den Fließtext */
+.bk-tile .bk-cta{margin-top:auto;}   /* schiebt den Button-Wrapper ans untere Ende der Kachel */
+.bk-tile a{display:inline-block;border:2px solid #F7B234;color:#F7B234;text-decoration:none;font-family:'Aleo',serif;font-weight:700;padding:10px 20px;border-radius:6px;}   /* gold umrandeter Button */
+.bk-tile a:hover{background:#F7B234;color:#3A5791;}   /* füllt sich beim Hover golden */
+
+/* === CSS für den Wert-Block auf der Startseite ("Beraten heißt bei uns mitdenken...") === */
+.bk-value{max-width:820px;margin:0 auto;padding:48px 20px;}   /* zentrierte, schmalere Textspalte für bessere Lesbarkeit */
+.bk-value h2{font-family:'Petrona',serif;font-weight:600;color:var(--bk-darkblue);font-size:1.8rem;line-height:1.25;margin:0 0 16px;}
+.bk-value p{font-family:'Aleo',serif;color:var(--bk-text);font-size:1.1rem;line-height:1.65;margin:0 0 14px;}
+
+/* === Testimonial-Namenszeile (bk-lohn-System) ===
+   Erzwingt eine eigene Zeile unter dem Zitat, weil Enfold zwischen
+   zwei <p>-Tags standardmäßig keinen Abstand einfügt. Gilt für alle
+   Testimonial-Blöcke im bk-lohn-System (Heilberufe und alle künftigen
+   Unterseiten), nicht nur für die aktuelle Seite. */
+.bk-lohn .bk-lohn-quote-attr {
+  display:block;                           /* eigene Zeile statt Fließtext direkt hinter dem Zitat */
+  margin-top:16px;                         /* Abstand zwischen Zitat und Namenszeile */
+  font-family:'Petrona', Georgia, serif;   /* Überschriften-Schrift, passend zum restlichen System */
+  color:#0080C9;                           /* kräftiges Blau (CI-Akzentfarbe) */
+  font-weight:700;                         /* fett, damit der Name als Absender hervorsticht */
+}
+
+/* === Trennstrich nach der letzten Experten-Säule im Menü "Unsere Expertise" ===
+   Die Klasse .saeule-ende wird im WP-Menü dem Menüpunkt zugewiesen, NACH dem
+   die Linie erscheinen soll (jetzt: Unternehmerberatung). So bleibt der Strich
+   robust an einem festen Punkt, egal wie viele Menüpunkte darunter folgen. */
+.saeule-ende {
+  border-bottom: 1px solid rgba(0,0,0,.14) !important;   /* die Trennlinie: 1px dünn, dezentes Grau */
+  padding-bottom: 12px !important;                        /* Abstand zwischen Text und Linie (oberhalb der Linie) */
+  margin-bottom: 12px !important;                         /* Abstand zwischen Linie und nächstem Menüpunkt (unterhalb) */
+}
+
+
+/* ============================================================
+   BLOGBEITRÄGE – Typografie und Abstände
+   Ergänzt am 31.07.2026.
+
+   Gilt für ALLE einzelnen Blogbeiträge über die WordPress-Body-Klasse
+   "single-post". Keine eigenen Klassen im Artikel nötig: Die Beiträge
+   werden mit normalen Enfold-Textblöcken gebaut und enthalten nur
+   Standard-Tags (h2, h3, p, ul, table).
+
+   Wirkt auch auf bestehende Beiträge und vereinheitlicht sie damit.
+   Seiten (Startseite, Landingpages, Leistungsseiten) sind nicht betroffen.
+   ============================================================ */
+
+/* ---- Überschriften: Abstand gehört ÜBER die Überschrift ----
+   Eine Überschrift leitet den folgenden Text ein. Steht der Abstand
+   darunter, wirkt sie wie ein abgetrennter Titel und der Leser verliert
+   die Zuordnung. Enfold setzt es standardmäßig umgekehrt.
+   "body #top" hebt die Spezifität über die Enfold-Vorgaben. */
+body.single-post #top .entry-content-wrapper h2 {
+  margin-top:2.75rem !important;      /* Luft nach oben trennt vom vorherigen Abschnitt */
+  margin-bottom:0.5rem !important;    /* wenig Luft nach unten: bindet an den eigenen Text */
+  padding-top:0 !important;           /* Enfold ergänzt teils padding, das hier stören würde */
+  padding-bottom:0 !important;
+  line-height:1.3;                    /* enger Zeilenabstand für mehrzeilige Überschriften */
+  scroll-margin-top:110px;            /* Sprungziel bleibt unter dem fixierten Header sichtbar */
+}
+body.single-post #top .entry-content-wrapper h3 {
+  margin-top:1.75rem !important;      /* weniger Luft als bei h2, aber klar sichtbar */
+  margin-bottom:0.35rem !important;   /* eng an den zugehörigen Text gebunden */
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  line-height:1.35;
+  scroll-margin-top:110px;
+}
+
+/* ---- Absätze ---- */
+body.single-post #top .entry-content-wrapper p {
+  margin-top:0 !important;            /* Abstand kommt ausschließlich vom Vorgängerelement */
+  margin-bottom:1.1em !important;     /* einheitlicher Absatzabstand */
+  line-height:1.65;                   /* großzügiger Zeilenabstand für lange Fachtexte */
+  max-width:68ch;                     /* Zeilenlänge ca. 68 Zeichen: optimale Lesegeschwindigkeit */
+  hyphens:auto;                       /* Silbentrennung bei Wörtern wie "Zugewinnausgleichsanspruch" */
+}
+/* Leere Absätze aus wpautop erzeugen sonst eine Leerzeile Höhe */
+body.single-post #top .entry-content-wrapper p:empty { display:none !important; }
+
+/* ---- Listen: gleiche Maße wie Absätze ---- */
+body.single-post #top .entry-content-wrapper ul,
+body.single-post #top .entry-content-wrapper ol {
+  max-width:68ch;                     /* gleiche Zeilenlänge wie Absätze */
+  margin-bottom:1.1em !important;     /* gleicher Abstand wie nach einem Absatz */
+  line-height:1.65;
+}
+body.single-post #top .entry-content-wrapper li { margin-bottom:.4em; }   /* Luft zwischen den Punkten */
+
+/* ---- Links im Fließtext ----
+   Unterstreichung ist Pflicht: Information darf nie allein über Farbe
+   transportiert werden (WCAG 1.4.1). */
+body.single-post #top .entry-content-wrapper p a,
+body.single-post #top .entry-content-wrapper li a {
+  text-decoration:underline !important;   /* zweites Erkennungsmerkmal neben der Farbe */
+  text-underline-offset:0.15em;           /* Unterstreichung absetzen, damit Unterlängen lesbar bleiben */
+}
+
+/* ---- Hervorhebungen von Links unterscheidbar halten ----
+   Enfold färbt <strong> in der Akzentfarbe. Zusammen mit der Fettung sieht
+   eine Hervorhebung dann aus wie ein Link. */
+body.single-post #top .entry-content-wrapper strong {
+  color:inherit !important;           /* Hervorhebung übernimmt die normale Textfarbe */
+  font-weight:700 !important;         /* Betonung läuft ausschließlich über die Strichstärke */
+}
+body.single-post #top .entry-content-wrapper a strong,
+body.single-post #top .entry-content-wrapper strong a {
+  color:var(--bk-darkblue, #3A5791) !important;   /* echter Link behält die Linkfarbe */
+  text-decoration:underline !important;
+}
+
+/* ---- Tabellen in Beiträgen ---- */
+body.single-post #top .entry-content-wrapper table {
+  width:100%;                         /* füllt die Textspalte */
+  border-collapse:collapse;           /* einfache Linien statt doppelter Zellrahmen */
+  margin:1.5rem 0 !important;         /* Abstand zum Fließtext */
+  font-size:.95em;                    /* leicht kleiner als der Fließtext */
+}
+body.single-post #top .entry-content-wrapper th {
+  background:var(--bk-darkblue, #3A5791);   /* dunkelblaue Kopfzeile laut Gestaltungsrichtlinie */
+  color:#FFFFFF;                      /* Weiß auf Dunkelblau = 7,1:1, erfüllt WCAG AA */
+  text-align:left;                    /* Standard für die Beschriftungsspalte */
+  padding:.6rem .75rem;
+}
+body.single-post #top .entry-content-wrapper th:not(:first-child) { text-align:right; }   /* Zahlenspalten */
+body.single-post #top .entry-content-wrapper td {
+  padding:.6rem .75rem;
+  border-bottom:1px solid #E3E6EC;    /* dezente Trennlinie zwischen den Zeilen */
+}
+body.single-post #top .entry-content-wrapper td:not(:first-child) {
+  text-align:right;                   /* Beträge rechtsbündig */
+  font-variant-numeric:tabular-nums;  /* gleich breite Ziffern: Beträge fluchten untereinander */
+}
+body.single-post #top .entry-content-wrapper tbody tr:nth-child(even) {
+  background:#F7F8FA;                 /* neutrale Zebrastreifen, kein Gold: Farbe trägt keine Bedeutung */
+}
+
+/* ---- Bilder und Schaubilder im Beitrag ---- */
+body.single-post #top .entry-content-wrapper p img,
+body.single-post #top .entry-content-wrapper figure img {
+  border-radius:6px;                  /* gleiche Rundung wie die Karten im bk-lohn-System */
+  height:auto;                        /* Seitenverhältnis bleibt erhalten */
+  max-width:100%;                     /* Bild bleibt in der Textspalte, auch bei großer Datei */
+}
+
+/* ---- Bildunterschrift ----
+   WordPress erzeugt beim Einfügen über "Medien hinzufügen" mit ausgefülltem
+   Feld "Beschriftung" ein figure-Element mit der Klasse wp-caption. Ältere
+   Beiträge nutzen stattdessen figcaption. Beide Varianten werden hier erfasst. */
+body.single-post #top .entry-content-wrapper .wp-caption {
+  max-width:100% !important;          /* verhindert, dass WordPress eine zu schmale Inline-Breite setzt */
+  margin:1.5rem 0 !important;         /* Abstand zum Fließtext, oben wie unten gleich */
+}
+body.single-post #top .entry-content-wrapper .wp-caption-text,
+body.single-post #top .entry-content-wrapper figcaption {
+  font-size:.9em;                     /* kleiner als der Fließtext, damit die Unterschrift nicht konkurriert */
+  line-height:1.5;
+  color:#5A6070;                      /* gedämpftes Grau, 6,4:1 auf Weiß – erfüllt WCAG AA */
+  text-align:left;                    /* linksbündig statt zentriert: liest sich bei ganzen Sätzen besser */
+  margin-top:.6rem !important;        /* Abstand zwischen Bild und Unterschrift */
+  padding-left:.7rem;                 /* Text von der goldenen Kante absetzen */
+  border-left:3px solid var(--bk-gold, #F7B234);   /* Gold als reine Deko; trägt keine Information */
+}
+
+/* ---- Mobile Anpassungen ---- */
+@media (max-width:640px){
+  body.single-post #top .entry-content-wrapper h2 { margin-top:2.25rem !important; }   /* etwas weniger Luft */
+  body.single-post #top .entry-content-wrapper h3 { margin-top:1.5rem !important; }
+  body.single-post #top .entry-content-wrapper h2,
+  body.single-post #top .entry-content-wrapper h3 { scroll-margin-top:80px; }   /* mobiler Header ist niedriger */
+  /* Tabelle wird auf schmalen Displays horizontal scrollbar, statt das Layout zu sprengen */
+  body.single-post #top .entry-content-wrapper table {
+    display:block;                    /* macht die Tabelle zum scrollbaren Block */
+    overflow-x:auto;                  /* horizontales Scrollen statt Überlauf */
+    white-space:nowrap;               /* verhindert Umbruch mitten in Beträgen */
+    font-size:.88em;                  /* kompaktere Schrift, weniger Scrollweg */
+  }
+}
+/* ============================================================
+   AfA-RECHNER RESTNUTZUNGSDAUER
+   Ergänzt am 02.08.2026, Fassung ohne Container-Abhängigkeit.
+
+   Gehört zum Code-Block "rechner-restnutzungsdauer.html".
+
+   WICHTIG ZUR BAUWEISE: Eine frühere Fassung hängte alle Regeln an den
+   Wrapper #bk-rnd. WordPress entfernt diesen äußeren Container beim
+   Speichern, wodurch sämtliche Regeln ins Leere liefen. Deshalb trägt
+   hier jedes Element seine eigene Klasse, und kein Selektor setzt einen
+   Elternknoten voraus.
+
+   Bewusst OHNE "body #top": Dieser Selektor greift im Beitragslayout nicht.
+   Die bk-rnd-Klassen sind eindeutig, eine Kollision mit Enfold-Regeln gibt es
+   nicht. Wo Enfold eigene Werte setzt (Überschriften, Absatzabstände), sichert
+   !important ab.
+   ============================================================ */
+
+/* ---- Karte ---- */
+.bk-rnd-card{
+  background:#fff;                                   /* weiße Fläche hebt den Rechner vom Text ab */
+  border:1px solid #e5e5e5;                          /* dezenter Rahmen */
+  border-top:4px solid #F7B234;                      /* goldene Oberkante wie bei den bk-lohn-Karten */
+  border-radius:6px;
+  padding:26px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);             /* leichter Schatten, hebt die Karte an */
+  max-width:860px;                                    /* begrenzt die Breite unabhängig vom Wrapper */
+  margin:2rem auto;                                   /* zentriert, Abstand zum Fließtext */
+  font-family:'Aleo',Georgia,serif;                   /* Marken-Fließtextschrift */
+  color:#333;
+}
+.bk-rnd-card *{box-sizing:border-box;}     /* Innenabstand zählt zur Breite */
+
+/* ---- Überschrift und Einleitung ---- */
+h3.bk-rnd-titel{
+  font-family:'Petrona',Georgia,serif;
+  color:#3A5791;
+  font-size:1.4em !important;
+  font-weight:600;
+  margin:0 0 6px !important;                          /* kein Abstand oben, der Kartenrand liefert ihn */
+  padding:0 !important;
+}
+.bk-rnd-sub{
+  margin:0 0 22px !important;
+  max-width:none !important;                          /* hebt die 68ch-Begrenzung der Beitragsabsätze auf */
+  font-size:.95em;
+  color:#5A6070;                                      /* gedämpftes Grau, 6,4:1 auf Weiß */
+}
+
+/* ---- Eingabefelder: zweispaltig ab 640px ---- */
+.bk-rnd-grid{
+  display:grid !important;                            /* gegen Enfold-Vorgaben auf div absichern */
+  grid-template-columns:1fr 1fr;
+  gap:16px 22px;
+  margin-bottom:22px;
+}
+@media(max-width:640px){
+  .bk-rnd-grid{grid-template-columns:1fr;}  /* am Handy einspaltig */
+}
+.bk-rnd-voll{grid-column:1/-1;}             /* Feld über beide Spalten */
+
+label.bk-rnd-label{
+  display:block;
+  font-weight:700;
+  font-size:.92em;
+  margin:0 0 5px !important;
+  color:#333;
+}
+.bk-rnd-hint{
+  display:block;
+  font-weight:400;
+  font-size:.85em;
+  color:#5A6070;
+  margin-top:2px;                                     /* Erklärzeile unter der Beschriftung */
+}
+.bk-rnd-feld{
+  width:100%;
+  padding:9px 11px;
+  border:1px solid #c9c9c9;
+  border-radius:4px;
+  font-family:inherit;
+  font-size:1em;
+  background:#fff;
+  color:#333;
+  height:auto;                                        /* überschreibt feste Enfold-Feldhöhen */
+}
+.bk-rnd-feld:focus-visible{
+  outline:2px solid #3A5791;                          /* sichtbarer Fokus für Tastaturbedienung */
+  outline-offset:2px;
+}
+
+/* ---- Ankreuzfeld ---- */
+.bk-rnd-check{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding-top:26px;                                   /* richtet die Zeile an der Feldunterkante aus */
+}
+@media(max-width:640px){
+  .bk-rnd-check{padding-top:0;}             /* einspaltig ist die Ausrichtung überflüssig */
+}
+.bk-rnd-box{
+  width:18px;height:18px;
+  accent-color:#3A5791;                               /* Häkchenfarbe im Kanzlei-Dunkelblau */
+  flex-shrink:0;
+  margin:0;
+}
+.bk-rnd-check label.bk-rnd-label{margin:0 !important;}
+
+/* ---- Anzeige des kombinierten Steuersatzes ---- */
+.bk-rnd-satzinfo{
+  background:#F6F8FB;                                 /* sehr helles Blaugrau */
+  border-left:4px solid #3A5791;                      /* blaue Kante als Hinweis-Signal */
+  border-radius:0 4px 4px 0;
+  padding:11px 14px;
+  margin:-6px 0 22px !important;                      /* rückt näher an die Eingabefelder */
+  font-size:.92em;
+}
+.bk-rnd-satzinfo strong{
+  color:#3A5791;
+  font-family:'Petrona',Georgia,serif;
+  font-size:1.15em;
+}
+
+/* ---- Ergebnisblöcke ---- */
+.bk-rnd-block{
+  border-radius:6px;
+  padding:20px 22px;
+  margin-bottom:14px;
+}
+.bk-rnd-vorteil{background:#eaf5fc;border:1px solid #bfe0f3;}  /* hellblau: der Vorteil */
+.bk-rnd-risiko{background:#FDF3E0;border:1px solid #F7B234;}   /* gold: das Risiko */
+.bk-rnd-block h4{
+  font-family:'Petrona',Georgia,serif;
+  font-size:1.05em !important;
+  font-weight:600;
+  margin:0 0 12px !important;
+  padding:0 !important;
+  color:#3A5791;
+}
+.bk-rnd-row{
+  display:flex !important;                            /* Enfold setzt teils display:block auf div */
+  justify-content:space-between;                      /* Bezeichnung links, Betrag rechts */
+  gap:14px;
+  padding:6px 0;
+  border-bottom:1px dashed rgba(0,0,0,.12);           /* dezente Trennlinie */
+  font-size:.94em;
+}
+.bk-rnd-row:last-child{border-bottom:none;}
+.bk-rnd-row span:last-child{
+  font-weight:700;
+  white-space:nowrap;                                 /* Betrag bricht nicht um */
+  font-variant-numeric:tabular-nums;                  /* Ziffern fluchten untereinander */
+}
+.bk-rnd-gross{
+  font-family:'Petrona',Georgia,serif;
+  font-size:1.5em;
+  font-weight:700;
+  color:#3A5791;
+  display:block;
+  margin-top:10px;
+}
+
+/* ---- Fazitzeile ---- */
+.bk-rnd-fazit{
+  background:#3A5791;                                 /* dunkelblaue Fläche */
+  color:#fff;                                         /* Weiß auf Dunkelblau = 7,1:1 */
+  border-radius:6px;
+  padding:18px 22px;
+  margin:6px 0 0 !important;
+  font-size:.97em;
+  line-height:1.5;
+  max-width:none;                                     /* hebt die 68ch-Begrenzung der Beitragsabsätze auf */
+}
+.bk-rnd-fazit strong{color:#F7B234;}        /* Kernzahl in Gold auf Dunkelblau */
+
+.bk-rnd-disclaimer{
+  font-size:.8em;
+  color:#777;
+  margin-top:16px !important;
+  line-height:1.5;
+  max-width:none;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .bk-rnd-card *{transition:none !important;animation:none !important;}
+}
+
+
+/* ============================================================
+   KAUFPREISAUFTEILUNGS-RECHNER [bk_kaufpreisaufteilung_rechner]
+   Ergänzt am 02.08.2026 (2. Fassung der Datei).
+
+   Gehört zum WPCode-PHP-Snippet "kaufpreisaufteilung-rechner-
+   shortcode.php" auf der Seite /kaufpreisaufteilung-immobilie/.
+
+   "#top" hebt die Spezifität über die Enfold-Formularvorgaben.
+   Farben laufen über die Markenbasis-Tokens weiter oben; die zwei
+   hier ergänzten Töne (Gold-Abtönung, Weiß) fehlten dort bislang
+   und werden additiv nachgereicht — bestehende Tokens unverändert.
+   ============================================================ */
+
+:root{
+  --bk-gold-tint:#FCE0B0;  /* Gold-Abtönung 35 %: helle Hinweis- und Akzentflächen */
+  --bk-weiss:#FFFFFF;      /* Weiß als benannter Token für Flächen und color-mix-Ableitungen */
+}
+
+.bk-kpa {                                  /* Gesamtcontainer des Rechners */
+  margin: 2.5rem 0;                        /* Luft zum umgebenden Artikeltext oben und unten */
+  padding: 1.5rem;                         /* Innenabstand, damit Inhalt nicht am Rand klebt */
+  border: 1px solid color-mix(in srgb, var(--bk-darkblue) 20%, var(--bk-weiss)); /* dezenter blauer Rahmen aus dem Token abgeleitet */
+  border-radius: 8px;                      /* leicht gerundete Ecken, konsistent mit Karten der Website */
+  background: var(--bk-weiss);             /* weiße Grundfläche, hebt sich vom Seitenhintergrund ab */
+  color: var(--bk-text); /* Fließtextfarbe; Anthrazit über den Bestands-Token */
+}
+
+.bk-kpa__eyebrow {                         /* kleine Dachzeile über der Rechner-Überschrift */
+  margin: 0 0 .25rem;                      /* enger Anschluss an die Überschrift darunter */
+  font-size: .8125rem;                     /* 13 px: bewusst klein als Einordnung */
+  font-weight: 700;                        /* fett für Lesbarkeit in kleiner Größe */
+  letter-spacing: .06em;                   /* leichte Sperrung als typografischer Akzent */
+  text-transform: uppercase;               /* Versalien als Dachzeilen-Konvention */
+  color: var(--bk-darkblue);             /* Dunkelblau statt Gold – Gold wäre auf Weiß unleserlich */
+}
+
+.bk-kpa h2,                                /* Rechner-Hauptüberschrift */
+.bk-kpa h3 {                               /* Schritt- und Kartenüberschriften */
+  color: var(--bk-darkblue); /* Dunkelblau über den Bestands-Token */
+  margin-top: 0;                           /* Enfold-Standardabstände oben zurücksetzen, Abstand regelt der Container */
+}
+
+.bk-kpa__notice {                          /* Hinweiskasten „Bitte zuerst amtlich rechnen" */
+  margin: 1rem 0 1.5rem;                   /* vom Kopf absetzen, Luft zum Formular */
+  padding: .875rem 1rem;                   /* kompakter Innenabstand */
+  background: var(--bk-gold-tint);         /* helle Goldfläche als Marken-Hinweisfarbe */
+  border-left: 4px solid var(--bk-gold);   /* kräftige Goldkante links als visueller Anker */
+  border-radius: 0 6px 6px 0;              /* Rundung nur rechts, links bleibt die Kante bündig */
+  color: var(--bk-text);              /* Anthrazit auf Gold-Tint: Kontrast deutlich über 4,5:1 */
+}
+
+#top .bk-kpa a {                           /* Links im Rechner – #top-Präfix, weil Enfold Links standardmäßig ohne Unterstreichung setzt */
+  color: var(--bk-darkblue);             /* Linkfarbe im Kanzlei-Blau */
+  text-decoration: underline;              /* Unterstreichung Pflicht: Information nie nur über Farbe */
+}
+
+.bk-kpa__step {                            /* Schrittzeile mit Nummernkreis und Text */
+  display: flex;                           /* Kreis und Text nebeneinander */
+  gap: .875rem;                            /* Abstand zwischen Kreis und Textblock */
+  align-items: flex-start;                 /* Kreis oben am Textblock ausrichten */
+  margin: 1.5rem 0 .75rem;                 /* Schritte klar voneinander trennen */
+}
+
+.bk-kpa__step-number {                     /* der nummerierte Kreis */
+  flex: 0 0 2rem;                          /* feste Breite 32 px, schrumpft nicht */
+  height: 2rem;                            /* 32 px hoch → rund und über dem 24-px-Mindestmaß */
+  border-radius: 50%;                      /* Kreisform */
+  background: var(--bk-darkblue);        /* dunkelblaue Fläche */
+  color: var(--bk-weiss);                  /* weiße Ziffer: 7,1:1 Kontrast */
+  font-weight: 700;                        /* fette Ziffer */
+  display: grid;                           /* Ziffer exakt zentrieren */
+  place-items: center;                     /* horizontal und vertikal mittig */
+}
+
+.bk-kpa__step p {                          /* Erläuterungstext unter der Schrittüberschrift */
+  margin: .25rem 0 0;                      /* enger Anschluss an die H3 darüber */
+}
+
+.bk-kpa__fields {                          /* Eingabefeld-Raster */
+  display: grid;                           /* Raster statt Untereinander */
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); /* Spalten ab 224 px, bricht mobil automatisch um */
+  gap: 1rem;                               /* gleichmäßiger Abstand zwischen den Feldern */
+}
+
+.bk-kpa__field label {                     /* Feldbeschriftungen */
+  display: block;                          /* eigene Zeile über dem Eingabefeld */
+  margin-bottom: .375rem;                  /* kleiner Abstand zum Feld */
+  font-weight: 700;                        /* fett zur klaren Zuordnung */
+}
+
+.bk-kpa__input-wrap {                      /* Rahmen um Zahlenfeld plus EUR-Suffix */
+  display: flex;                           /* Feld und „EUR" nebeneinander */
+  align-items: center;                     /* Suffix vertikal mittig */
+  border: 1px solid color-mix(in srgb, var(--bk-text) 60%, var(--bk-weiss)); /* neutraler Feldrahmen, nachgerechnet 3,7:1 – erfüllt die 3:1-UI-Anforderung */
+  border-radius: 6px;                      /* Rundung wie Container */
+  background: var(--bk-weiss);             /* weißes Feld */
+}
+
+#top .bk-kpa__input-wrap input {           /* das Zahlenfeld selbst – #top-Präfix nötig, sonst gewinnen Enfolds ID-Selektoren */
+  flex: 1;                                 /* nimmt die verfügbare Breite ein */
+  min-width: 0;                            /* verhindert Überlaufen in schmalen Rastern */
+  min-height: 44px;                        /* komfortables Touchziel deutlich über 24 px */
+  margin: 0;                               /* Enfolds margin-bottom am Input entfernen – Ursache des Leerraums unter dem Feld */
+  padding: .5rem .75rem;                   /* Innenabstand für Lesbarkeit */
+  border: 0;                               /* Rahmen trägt der Wrapper – entfernt Enfolds Feldrahmen (Doppelkasten) */
+  box-shadow: none;                        /* eventuelle Innenschatten des Themes zurücksetzen */
+  background: transparent;                 /* Wrapper-Hintergrund durchscheinen lassen */
+  font: inherit;                           /* Seitentypografie übernehmen */
+  color: var(--bk-text);              /* eingegebene Zahlen in Anthrazit */
+}
+
+.bk-kpa__input-wrap span {                 /* das „EUR"-Suffix */
+  padding: 0 .75rem;                       /* Abstand zum Feldrand */
+  color: color-mix(in srgb, var(--bk-text) 75%, var(--bk-weiss)); /* leicht zurückgenommen, bleibt über 4,5:1 */
+}
+
+#top .bk-kpa select {                      /* AfA-Satz-Auswahl – #top-Präfix gegen Enfolds Formular-Styles */
+  width: 100%;                             /* volle Feldbreite im Raster */
+  min-height: 44px;                        /* Touchziel wie die Zahlenfelder */
+  padding: .5rem .75rem;                   /* Innenabstand */
+  margin: 0;                               /* Enfold-Außenabstand entfernen */
+  border: 1px solid color-mix(in srgb, var(--bk-text) 60%, var(--bk-weiss)); /* gleicher Rahmen wie Eingabefelder, 3,9:1 */
+  border-radius: 6px;                      /* einheitliche Rundung */
+  background: var(--bk-weiss);             /* weißes Feld */
+  font: inherit;                           /* Seitentypografie */
+  color: var(--bk-text);              /* Textfarbe */
+}
+
+.bk-kpa input[type="range"] {              /* Schieberegler-Grundelement */
+  width: 100%;                             /* volle Breite der Spalte */
+  min-height: 44px;                        /* großzügige Trefferfläche für Touch */
+  accent-color: var(--bk-darkblue);      /* Browser-Standarddarstellung im Kanzlei-Blau statt System-Blau */
+  cursor: pointer;                         /* signalisiert Bedienbarkeit */
+}
+
+.bk-kpa input[type="range"]::-webkit-slider-thumb { /* Griff in Chrome/Safari/Edge */
+  width: 24px;                             /* Mindest-Zielgröße nach WCAG 2.2 */
+  height: 24px;                            /* quadratische Basis für runden Griff */
+}
+
+.bk-kpa input[type="range"]::-moz-range-thumb {     /* Griff in Firefox */
+  width: 24px;                             /* identische Zielgröße */
+  height: 24px;                            /* wie oben */
+}
+
+.bk-kpa__range-labels {                    /* „0 %" und „20 %" unter dem Regler */
+  display: flex;                           /* beide Werte in eine Zeile */
+  justify-content: space-between;          /* an die Enden des Reglers setzen – behebt das zusammengeklebte „0 %20 %" */
+  font-size: .8125rem;                     /* kleine Hilfsbeschriftung */
+  color: color-mix(in srgb, var(--bk-text) 75%, var(--bk-weiss)); /* zurückgenommen, aber lesbar */
+}
+
+.bk-kpa :is(input, select, a, summary, [type="range"]):focus-visible { /* sichtbarer Tastaturfokus auf allen Bedienelementen */
+  outline: 2px solid var(--bk-darkblue); /* 2-px-Ring im Kanzlei-Blau */
+  outline-offset: 2px;                     /* 2 px Abstand, damit der Ring nicht am Element klebt */
+  border-radius: 4px;                      /* Ring folgt weich der Elementform */
+}
+
+.bk-kpa__error {                           /* Fehlermeldung bei ungültigen Eingaben */
+  margin: 1rem 0 0;                        /* Abstand zum Formular */
+  padding: .75rem 1rem;                    /* Innenabstand */
+  border: 2px solid var(--bk-red);         /* roter Rahmen als Zustandssignal – Bedeutung trägt der Text (role=alert) */
+  border-radius: 6px;                      /* einheitliche Rundung */
+  color: var(--bk-text);              /* Text in Anthrazit: Hellrot als Textfarbe hätte nur 3,8:1 */
+  font-weight: 700;                        /* Fehlermeldung deutlich hervorheben */
+}
+
+.bk-kpa [hidden] {                         /* natives hidden-Attribut durchsetzen */
+  display: none !important;                /* !important nötig: Enfold setzt display auf generische Elemente – erlaubte Override-Ausnahme */
+}
+
+.bk-kpa__results {                         /* Bereich mit den zwei Ergebniskarten */
+  display: grid;                           /* Karten im Raster */
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); /* nebeneinander ab 256 px, mobil untereinander */
+  gap: 1rem;                               /* Abstand zwischen den Karten */
+  margin-top: 1.5rem;                      /* Luft zum Formular */
+}
+
+.bk-kpa__result-card {                     /* neutrale Ergebniskarte (BMF-Ausgangswert) */
+  padding: 1.25rem;                        /* Innenabstand */
+  border: 1px solid color-mix(in srgb, var(--bk-darkblue) 20%, var(--bk-weiss)); /* dezenter blauer Rahmen */
+  border-radius: 8px;                      /* Rundung wie Container */
+  background: color-mix(in srgb, var(--bk-darkblue) 4%, var(--bk-weiss)); /* hauchzarte Blaufläche zur Abgrenzung vom Weiß */
+}
+
+.bk-kpa__result-card--accent {             /* hervorgehobene Karte (vertragliche Orientierung) */
+  background: var(--bk-gold-tint);         /* Gold-Tint als Markenausdruck der betonten Seite */
+  border: 2px solid var(--bk-gold);        /* kräftigere Goldkante: Betonung nie über Farbe allein, auch über Kantenstärke */
+}
+
+.bk-kpa__result-kicker {                   /* kleine Zeile über der Kartenüberschrift */
+  margin: 0;                               /* kein Extra-Abstand */
+  font-size: .8125rem;                     /* klein */
+  font-weight: 700;                        /* fett */
+  text-transform: uppercase;               /* Versalien wie die Dachzeile oben */
+  letter-spacing: .05em;                   /* leichte Sperrung */
+  color: var(--bk-darkblue);             /* Dunkelblau, auch auf Gold-Tint gut lesbar */
+}
+
+.bk-kpa__result-card h3 {                  /* Kartenüberschrift */
+  margin: .25rem 0 .875rem;                /* kompakt zwischen Kicker und Werteliste */
+  font-size: 1.25rem;                      /* deutlich kleiner als die Enfold-H3 im Artikel, passend zur Kartengröße */
+}
+
+.bk-kpa__result-card dl {                  /* Werteliste der Karte */
+  margin: 0;                               /* Browser-Standardabstand entfernen */
+}
+
+.bk-kpa__result-card dl div {              /* ein Eintrag aus Begriff und Wert */
+  padding: .5rem 0;                        /* Zeilenhöhe */
+  border-bottom: 1px solid color-mix(in srgb, var(--bk-text) 15%, var(--bk-weiss)); /* feine Trennlinie zwischen den Einträgen */
+}
+
+.bk-kpa__result-card dl div:last-child {   /* letzte Zeile der Liste */
+  border-bottom: 0;                        /* keine Linie unter der letzten Zeile */
+}
+
+.bk-kpa__result-card dt {                  /* Begriff (z. B. „Grund und Boden") */
+  font-weight: 400;                        /* normalgewichtig, der Wert trägt die Betonung */
+  font-size: .875rem;                      /* etwas kleiner, ordnet sich der Zahl unter */
+}
+
+.bk-kpa__result-card dd {                  /* Wert (z. B. „160.000 EUR · 32,0 %") */
+  margin: .125rem 0 0;                     /* steht UNTER dem Begriff – Schaubild-Regel „Zahl unter der Beschreibung", verhindert den %-Umbruch */
+  font-weight: 700;                        /* Zahlen fett */
+  font-size: 1.125rem;                     /* 18 px: Zahl als Blickfang der Zeile */
+  color: var(--bk-darkblue);             /* Zahlen im Kanzlei-Blau wie in den Schaubildern */
+  white-space: nowrap;                     /* „EUR · 32,0 %" bleibt zusammen auf einer Zeile */
+}
+
+.bk-kpa__balance {                         /* dunkelblaue Ergebniszeile (Vorteil/Risiko/Fazit) */
+  margin-top: 1rem;                        /* Abstand zu den Karten */
+  padding: 1.25rem;                        /* Innenabstand */
+  border-radius: 8px;                      /* Rundung wie Karten */
+  background: var(--bk-darkblue);        /* dunkelblaue Fläche analog Ergebniszeile der Schaubilder */
+  color: var(--bk-weiss);                  /* weißer Text: 7,1:1 */
+  display: grid;                           /* zwei Kennzahlen plus Fazit im Raster */
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); /* Kennzahlen nebeneinander, mobil untereinander */
+  gap: .75rem 1.5rem;                      /* Zeilen- und Spaltenabstand */
+}
+
+.bk-kpa__balance span {                    /* Beschriftung der Kennzahl */
+  display: block;                          /* eigene Zeile über dem Wert */
+  font-size: .875rem;                      /* etwas kleiner */
+  color: color-mix(in srgb, var(--bk-weiss) 80%, var(--bk-darkblue)); /* abgesenktes Weiß, bleibt über 4,5:1 auf Dunkelblau */
+}
+
+.bk-kpa__balance strong {                  /* die Kennzahl selbst */
+  display: block;                          /* unter der Beschriftung, nie daneben */
+  font-size: 1.25rem;                      /* 20 px fett = großer Text im Sinne der Kontrastregeln */
+  color: var(--bk-gold);                   /* Gold auf Dunkelblau: für großen fetten Text zulässig, wie in den Schaubildern */
+}
+
+.bk-kpa__balance p {                       /* Fazit-Satz in der blauen Zeile */
+  grid-column: 1 / -1;                     /* über die volle Breite unter den Kennzahlen */
+  margin: .25rem 0 0;                      /* kleiner Abstand nach oben */
+  color: var(--bk-weiss);                  /* volles Weiß für den Lesetext */
+}
+
+.bk-kpa__details {                         /* Aufklapper „Was der Rechner nicht berücksichtigt" */
+  margin-top: 1rem;                        /* Abstand zur blauen Zeile */
+}
+
+.bk-kpa__details summary {                 /* Klickzeile des Aufklappers */
+  cursor: pointer;                         /* signalisiert Bedienbarkeit */
+  font-weight: 700;                        /* fett als Bedienelement */
+  color: var(--bk-darkblue);             /* im Kanzlei-Blau */
+  min-height: 24px;                        /* Mindest-Zielgröße */
+}
+
+.bk-kpa__disclaimer {                      /* rechtlicher Hinweis am Ende */
+  margin: 1rem 0 0;                        /* Abstand zum Aufklapper */
+  font-size: .875rem;                      /* etwas kleiner als Fließtext */
+  color: color-mix(in srgb, var(--bk-text) 80%, var(--bk-weiss)); /* leicht zurückgenommen, klar über 4,5:1 */
+}
+
+/* ============================================================
+   TYPOGRAFIE: EINDEUTIGE NULL IN ÜBERSCHRIFTEN
+   Ergänzt am 02.08.2026 (3. Fassung der Datei).
+
+   Problem: Die Null der Überschriftenschrift Petrona ist fast so
+   rund und breit wie das Versal-O — "20-Prozent" liest sich als
+   "2O-Prozent". Petrona bringt dafür das OpenType-Feature "zero"
+   (durchgestrichene Null) mit; diese Regel schaltet es für alle
+   Überschriften ein. Die Fließtextschrift Aleo braucht das nicht,
+   ihre Null ist deutlich schmaler als das O.
+   ============================================================ */
+
+#top h1, #top h2, #top h3,
+#top h4, #top h5, #top h6 {
+  font-variant-numeric: slashed-zero;   /* aktiviert die durchgestrichene Null der Schrift; Ziffern bleiben sonst unverändert */
+}
+
+/* ============================================================
+   RECHNER: ÜBERSCHRIFTEN IM RAHMEN HALTEN
+   Fassung vom 02.08.2026 (ersetzt die Abwehrblöcke der 4./5. Fassung).
+
+   Ursache identifiziert: Das Child-Theme (themes/ditax/style.css,
+   Zeile 628 bzw. 549) gibt allen H1/H2 auf Beitragsseiten
+   "margin-left:-60px" — hängende Überschriften als Designmerkmal
+   der Agentur, mobil per Media Query wieder aufgehoben. Innerhalb
+   der umrandeten Rechner-Karte ist das unerwünscht; diese Regel
+   hebt es dort gezielt auf. Das Site-Design bleibt unberührt.
+   ============================================================ */
+
+body #top .bk-kpa h2 {
+  margin-left:0 !important;   /* neutralisiert die -60px aus dem Child-Theme innerhalb der Karte */
+  margin-top:0 !important;    /* hebt zugleich den 2.75rem-Blogabstand auf: die Dachzeile darüber übernimmt die Trennung */
+}
