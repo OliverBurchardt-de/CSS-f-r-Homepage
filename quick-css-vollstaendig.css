@@ -3,12 +3,22 @@
    Einbau: Enfold → Allgemeine Formatierung → Quick CSS
    Diese Datei ersetzt die komplette bisherige Quick-CSS-Datei.
 
-   Stand: 25.08.2026, 7. Fassung
-   Änderung gegenüber der Vorversion: Am Ende der Datei ist der
-   Block "BLOG: FAQ-ABSTÄNDE UND INTRO-SECTION" neu hinzugekommen.
-   Er korrigiert zwei Abstandsprobleme im Beitragslayout
-   (FAQ-Fragen kleben am Text darüber; zu große Lücke zwischen
-   Intro-Section und Inhaltsverzeichnis). Alles übrige unverändert.
+   Stand: 26.08.2026, 8. Fassung
+   Änderung gegenüber der Vorversion – drei Punkte:
+   (1) Tote Selektoren repariert (37 Stellen): Enfold vergibt
+       id="top" an das <body>-Element selbst; "body.single-post
+       #top …" verlangte ein #top INNERHALB des Body und traf
+       deshalb nichts. Jetzt "body#top.single-post …" bzw.
+       "body#top .bk-kpa". Spezifität unverändert.
+   (2) FAQ-Antworten an die Absatztypografie angeglichen
+       (max-width:68ch, line-height:1.65), weil Enfold im
+       Codeblock kein wpautop ausführt und die Antworten ohne
+       <p> nichts aus dem Absatz-Block erben.
+   (3) Neuer Block "BLOG: H1 DES BEITRAGS IN DIE TEXTSPALTE
+       HOLEN" am Dateiende: holt das vom Child-Theme außerhalb
+       des Containers eingefügte h1.bk-post-h1 in die
+       800px-Textspalte, unterlegt #main weiß und hebt im Band
+       481–767px den hängenden -60px-Versatz aller h1/h2 auf.
    ============================================================ */
 
 /* ---- Datum-Hinweis unter Blogartikeln (z. B. "zuletzt aktualisiert am") ---- */
@@ -354,7 +364,7 @@ p.post-last-modified {
    darunter, wirkt sie wie ein abgetrennter Titel und der Leser verliert
    die Zuordnung. Enfold setzt es standardmäßig umgekehrt.
    "body #top" hebt die Spezifität über die Enfold-Vorgaben. */
-body.single-post #top .entry-content-wrapper h2 {
+body#top.single-post .entry-content-wrapper h2 {
   margin-top:2.75rem !important;      /* Luft nach oben trennt vom vorherigen Abschnitt */
   margin-bottom:0.5rem !important;    /* wenig Luft nach unten: bindet an den eigenen Text */
   padding-top:0 !important;           /* Enfold ergänzt teils padding, das hier stören würde */
@@ -362,7 +372,7 @@ body.single-post #top .entry-content-wrapper h2 {
   line-height:1.3;                    /* enger Zeilenabstand für mehrzeilige Überschriften */
   scroll-margin-top:110px;            /* Sprungziel bleibt unter dem fixierten Header sichtbar */
 }
-body.single-post #top .entry-content-wrapper h3 {
+body#top.single-post .entry-content-wrapper h3 {
   margin-top:1.75rem !important;      /* weniger Luft als bei h2, aber klar sichtbar */
   margin-bottom:0.35rem !important;   /* eng an den zugehörigen Text gebunden */
   padding-top:0 !important;
@@ -372,7 +382,7 @@ body.single-post #top .entry-content-wrapper h3 {
 }
 
 /* ---- Absätze ---- */
-body.single-post #top .entry-content-wrapper p {
+body#top.single-post .entry-content-wrapper p {
   margin-top:0 !important;            /* Abstand kommt ausschließlich vom Vorgängerelement */
   margin-bottom:1.1em !important;     /* einheitlicher Absatzabstand */
   line-height:1.65;                   /* großzügiger Zeilenabstand für lange Fachtexte */
@@ -380,22 +390,22 @@ body.single-post #top .entry-content-wrapper p {
   hyphens:auto;                       /* Silbentrennung bei Wörtern wie "Zugewinnausgleichsanspruch" */
 }
 /* Leere Absätze aus wpautop erzeugen sonst eine Leerzeile Höhe */
-body.single-post #top .entry-content-wrapper p:empty { display:none !important; }
+body#top.single-post .entry-content-wrapper p:empty { display:none !important; }
 
 /* ---- Listen: gleiche Maße wie Absätze ---- */
-body.single-post #top .entry-content-wrapper ul,
-body.single-post #top .entry-content-wrapper ol {
+body#top.single-post .entry-content-wrapper ul,
+body#top.single-post .entry-content-wrapper ol {
   max-width:68ch;                     /* gleiche Zeilenlänge wie Absätze */
   margin-bottom:1.1em !important;     /* gleicher Abstand wie nach einem Absatz */
   line-height:1.65;
 }
-body.single-post #top .entry-content-wrapper li { margin-bottom:.4em; }   /* Luft zwischen den Punkten */
+body#top.single-post .entry-content-wrapper li { margin-bottom:.4em; }   /* Luft zwischen den Punkten */
 
 /* ---- Links im Fließtext ----
    Unterstreichung ist Pflicht: Information darf nie allein über Farbe
    transportiert werden (WCAG 1.4.1). */
-body.single-post #top .entry-content-wrapper p a,
-body.single-post #top .entry-content-wrapper li a {
+body#top.single-post .entry-content-wrapper p a,
+body#top.single-post .entry-content-wrapper li a {
   text-decoration:underline !important;   /* zweites Erkennungsmerkmal neben der Farbe */
   text-underline-offset:0.15em;           /* Unterstreichung absetzen, damit Unterlängen lesbar bleiben */
 }
@@ -403,45 +413,45 @@ body.single-post #top .entry-content-wrapper li a {
 /* ---- Hervorhebungen von Links unterscheidbar halten ----
    Enfold färbt <strong> in der Akzentfarbe. Zusammen mit der Fettung sieht
    eine Hervorhebung dann aus wie ein Link. */
-body.single-post #top .entry-content-wrapper strong {
+body#top.single-post .entry-content-wrapper strong {
   color:inherit !important;           /* Hervorhebung übernimmt die normale Textfarbe */
   font-weight:700 !important;         /* Betonung läuft ausschließlich über die Strichstärke */
 }
-body.single-post #top .entry-content-wrapper a strong,
-body.single-post #top .entry-content-wrapper strong a {
+body#top.single-post .entry-content-wrapper a strong,
+body#top.single-post .entry-content-wrapper strong a {
   color:var(--bk-darkblue, #3A5791) !important;   /* echter Link behält die Linkfarbe */
   text-decoration:underline !important;
 }
 
 /* ---- Tabellen in Beiträgen ---- */
-body.single-post #top .entry-content-wrapper table {
+body#top.single-post .entry-content-wrapper table {
   width:100%;                         /* füllt die Textspalte */
   border-collapse:collapse;           /* einfache Linien statt doppelter Zellrahmen */
   margin:1.5rem 0 !important;         /* Abstand zum Fließtext */
   font-size:.95em;                    /* leicht kleiner als der Fließtext */
 }
-body.single-post #top .entry-content-wrapper th {
+body#top.single-post .entry-content-wrapper th {
   background:var(--bk-darkblue, #3A5791);   /* dunkelblaue Kopfzeile laut Gestaltungsrichtlinie */
   color:#FFFFFF;                      /* Weiß auf Dunkelblau = 7,1:1, erfüllt WCAG AA */
   text-align:left;                    /* Standard für die Beschriftungsspalte */
   padding:.6rem .75rem;
 }
-body.single-post #top .entry-content-wrapper th:not(:first-child) { text-align:right; }   /* Zahlenspalten */
-body.single-post #top .entry-content-wrapper td {
+body#top.single-post .entry-content-wrapper th:not(:first-child) { text-align:right; }   /* Zahlenspalten */
+body#top.single-post .entry-content-wrapper td {
   padding:.6rem .75rem;
   border-bottom:1px solid #E3E6EC;    /* dezente Trennlinie zwischen den Zeilen */
 }
-body.single-post #top .entry-content-wrapper td:not(:first-child) {
+body#top.single-post .entry-content-wrapper td:not(:first-child) {
   text-align:right;                   /* Beträge rechtsbündig */
   font-variant-numeric:tabular-nums;  /* gleich breite Ziffern: Beträge fluchten untereinander */
 }
-body.single-post #top .entry-content-wrapper tbody tr:nth-child(even) {
+body#top.single-post .entry-content-wrapper tbody tr:nth-child(even) {
   background:#F7F8FA;                 /* neutrale Zebrastreifen, kein Gold: Farbe trägt keine Bedeutung */
 }
 
 /* ---- Bilder und Schaubilder im Beitrag ---- */
-body.single-post #top .entry-content-wrapper p img,
-body.single-post #top .entry-content-wrapper figure img {
+body#top.single-post .entry-content-wrapper p img,
+body#top.single-post .entry-content-wrapper figure img {
   border-radius:6px;                  /* gleiche Rundung wie die Karten im bk-lohn-System */
   height:auto;                        /* Seitenverhältnis bleibt erhalten */
   max-width:100%;                     /* Bild bleibt in der Textspalte, auch bei großer Datei */
@@ -451,12 +461,12 @@ body.single-post #top .entry-content-wrapper figure img {
    WordPress erzeugt beim Einfügen über "Medien hinzufügen" mit ausgefülltem
    Feld "Beschriftung" ein figure-Element mit der Klasse wp-caption. Ältere
    Beiträge nutzen stattdessen figcaption. Beide Varianten werden hier erfasst. */
-body.single-post #top .entry-content-wrapper .wp-caption {
+body#top.single-post .entry-content-wrapper .wp-caption {
   max-width:100% !important;          /* verhindert, dass WordPress eine zu schmale Inline-Breite setzt */
   margin:1.5rem 0 !important;         /* Abstand zum Fließtext, oben wie unten gleich */
 }
-body.single-post #top .entry-content-wrapper .wp-caption-text,
-body.single-post #top .entry-content-wrapper figcaption {
+body#top.single-post .entry-content-wrapper .wp-caption-text,
+body#top.single-post .entry-content-wrapper figcaption {
   font-size:.9em;                     /* kleiner als der Fließtext, damit die Unterschrift nicht konkurriert */
   line-height:1.5;
   color:#5A6070;                      /* gedämpftes Grau, 6,4:1 auf Weiß – erfüllt WCAG AA */
@@ -468,12 +478,12 @@ body.single-post #top .entry-content-wrapper figcaption {
 
 /* ---- Mobile Anpassungen ---- */
 @media (max-width:640px){
-  body.single-post #top .entry-content-wrapper h2 { margin-top:2.25rem !important; }   /* etwas weniger Luft */
-  body.single-post #top .entry-content-wrapper h3 { margin-top:1.5rem !important; }
-  body.single-post #top .entry-content-wrapper h2,
-  body.single-post #top .entry-content-wrapper h3 { scroll-margin-top:80px; }   /* mobiler Header ist niedriger */
+  body#top.single-post .entry-content-wrapper h2 { margin-top:2.25rem !important; }   /* etwas weniger Luft */
+  body#top.single-post .entry-content-wrapper h3 { margin-top:1.5rem !important; }
+  body#top.single-post .entry-content-wrapper h2,
+  body#top.single-post .entry-content-wrapper h3 { scroll-margin-top:80px; }   /* mobiler Header ist niedriger */
   /* Tabelle wird auf schmalen Displays horizontal scrollbar, statt das Layout zu sprengen */
-  body.single-post #top .entry-content-wrapper table {
+  body#top.single-post .entry-content-wrapper table {
     display:block;                    /* macht die Tabelle zum scrollbaren Block */
     overflow-x:auto;                  /* horizontales Scrollen statt Überlauf */
     white-space:nowrap;               /* verhindert Umbruch mitten in Beträgen */
@@ -974,7 +984,7 @@ label.bk-rnd-label{
    hebt es dort gezielt auf. Das Site-Design bleibt unberührt.
    ============================================================ */
 
-body #top .bk-kpa h2 {
+body#top .bk-kpa h2 {
   margin-left:0 !important;   /* neutralisiert die -60px aus dem Child-Theme innerhalb der Karte */
   margin-top:0 !important;    /* hebt zugleich den 2.75rem-Blogabstand auf: die Dachzeile darüber übernimmt die Trennung */
 }
@@ -1011,7 +1021,7 @@ body #top .bk-kpa h2 {
    Der margin-bottom bleibt bewusst unangetastet bei 0,35rem:
    Genau dieses Missverhältnis – viel Luft oben, wenig unten –
    bindet die Frage an ihre eigene Antwort. */
-body.single-post #top .entry-content-wrapper section.bk-faq h3 {
+body#top.single-post .entry-content-wrapper section.bk-faq h3 {
   margin-top:3rem !important;   /* rund das Doppelte des Fließtext-Werts; trennt Antwort und nächste Frage sichtbar */
 }
 
@@ -1019,15 +1029,20 @@ body.single-post #top .entry-content-wrapper section.bk-faq h3 {
    FAQ-Blocks. Dort steht bereits deren Abstand; 3rem würden den
    Block optisch aufreißen. :first-of-type trifft den ersten
    Frage-Antwort-Wrapper innerhalb der Section. */
-body.single-post #top .entry-content-wrapper section.bk-faq > div:first-of-type h3 {
+body#top.single-post .entry-content-wrapper section.bk-faq > div:first-of-type h3 {
   margin-top:1.5rem !important;   /* knapper Anschluss an die Blocküberschrift */
 }
 
 /* Der Antwort-Container bekommt keinen eigenen unteren Rand.
    Der gesamte Abstand wird über die nächste Frage gesteuert,
-   sonst addieren sich zwei Werte unkontrolliert. */
-body.single-post #top .entry-content-wrapper section.bk-faq > div > div {
+   sonst addieren sich zwei Werte unkontrolliert.
+   Zeilenlänge und Zeilenabstand kommen hier zusätzlich dazu:
+   Enfold führt im Codeblock kein wpautop aus, die Antworten stehen
+   ohne <p> und erben deshalb nichts aus dem Absatz-Block. */
+body#top.single-post .entry-content-wrapper section.bk-faq > div > div {
   margin-bottom:0 !important;
+  max-width:68ch;     /* gleiche Zeilenlänge wie die Absätze im Fließtext */
+  line-height:1.65;   /* gleicher Zeilenabstand wie die Absätze */
 }
 
 
@@ -1041,7 +1056,7 @@ body.single-post #top .entry-content-wrapper section.bk-faq > div > div {
 /* Unteres Padding der Intro-Section auf ein ruhiges Maß bringen.
    Der Pfad > .container > .content trifft genau den Enfold-Wrapper,
    der das Padding trägt – nicht den Textblock darin. */
-body.single-post #top .bk-intro > .container > .content {
+body#top.single-post .bk-intro > .container > .content {
   padding-bottom:20px !important;   /* statt rund 50px; !important, weil Enfold das Padding je nach Sectiontyp mehrfach setzt */
 }
 
@@ -1050,7 +1065,7 @@ body.single-post #top .bk-intro > .container > .content {
    einen Wrap und lässt alle anderen Container unberührt.
    Das Padding oben entfällt vollständig; den verbleibenden
    Abstand übernimmt die 30px-Marge der Trennlinie. */
-body.single-post #top .bk-intro + .av_default_container_wrap > .container > .content {
+body#top.single-post .bk-intro + .av_default_container_wrap > .container > .content {
   padding-top:0 !important;
 }
 
@@ -1062,19 +1077,98 @@ body.single-post #top .bk-intro + .av_default_container_wrap > .container > .con
    deshalb eine Stufe zurück – das Verhältnis bleibt gleich. */
 @media (max-width:640px){
 
-  body.single-post #top .entry-content-wrapper section.bk-faq h3 {
+  body#top.single-post .entry-content-wrapper section.bk-faq h3 {
     margin-top:2.25rem !important;
   }
 
-  body.single-post #top .entry-content-wrapper section.bk-faq > div:first-of-type h3 {
+  body#top.single-post .entry-content-wrapper section.bk-faq > div:first-of-type h3 {
     margin-top:1.25rem !important;
   }
 
   /* Auf dem Handy fällt der Sprung zwischen Intro und
      Inhaltsverzeichnis ohnehin kürzer aus; hier reicht weniger. */
-  body.single-post #top .bk-intro > .container > .content {
+  body#top.single-post .bk-intro > .container > .content {
     padding-bottom:10px !important;
   }
 }
 
 /* === Ende Ergänzung vom 25.08.2026 ========================== */
+
+
+/* ============================================================
+   BLOG: H1 DES BEITRAGS IN DIE TEXTSPALTE HOLEN
+   Ergänzt am 26.08.2026 (8. Fassung).
+
+   URSACHE
+   Das Child-Theme blendet den Beitragstitel über einen Filter auf
+   `the_content` als <h1 class="bk-post-h1"> ein. Bei Beiträgen, die
+   mit dem Enfold-Layout-Builder gebaut sind, landet dieses h1
+   dadurch als direktes Kind von #main – also AUSSERHALB von
+   .container_wrap > .container. Daraus folgen drei Fehler:
+
+     1. Das h1 läuft über die volle Fensterbreite statt über die
+        800px der Textspalte.
+     2. `.single-post h1, .single-post h2 { margin-left:-60px }`
+        (Child-Theme, style.css Zeile 630) ist als hängende
+        Überschrift gedacht: Sie hängt in die 60px Innenabstand,
+        die `.single-post .container_wrap.fullsize .container`
+        (Zeile 622) mitbringt. Ohne diesen Container hängt das h1
+        aus dem Fenster heraus und wird links abgeschnitten.
+     3. #main hat keinen eigenen Hintergrund. Wo keine weiße
+        Enfold-Section darüberliegt, scheint der goldene
+        Seitenhintergrund durch – daher das Farbband um den Titel.
+
+   Diese Regeln geben dem h1 dieselbe Spaltengeometrie wie dem
+   übrigen Beitragsinhalt. Der DOM bleibt unverändert, das
+   Child-Theme wird nicht angefasst.
+   ============================================================ */
+
+/* Der Beitragsbereich bekommt dieselbe weiße Grundfläche wie die
+   Enfold-Sections darin. Damit verschwindet das Farbband um den
+   Titel und in etwaigen Lücken zwischen den Sections.
+   Greift ausschließlich auf Einzelbeiträgen, nicht auf Seiten. */
+body#top.single-post #main {
+  background-color:#fff;   /* Grundfläche laut Design-System (--bk-weiss) */
+}
+
+body#top.single-post #main > h1.bk-post-h1 {
+  box-sizing:border-box;   /* max-width schließt Innenabstände ein – wie bei .container */
+  max-width:800px;         /* identisch zu .single-post .container_wrap.fullsize .container */
+  margin-left:auto;        /* zentriert die Spalte; ersetzt das margin-left:-60px des Child-Themes */
+  margin-right:auto;
+  margin-bottom:16px;      /* statt 50px: die folgende Intro-Section bringt eigenes Padding mit */
+  padding-left:0;          /* der Container hätte hier 60px Innenabstand, in die das h1 zurückhängt.
+                              Ohne Container ist 0 genau dieselbe Textkante wie bei den h2 darunter. */
+  padding-right:0;
+  hyphens:auto;            /* trennt lange Komposita wie "Beitragssatzstabilisierungsgesetz";
+                              greift, weil <html lang="de"> gesetzt ist */
+  overflow-wrap:break-word;/* Rückfallebene: bricht notfalls auch ohne Trennmuster um */
+}
+
+/* margin-top bleibt bewusst bei den 80px aus dem Child-Theme
+   (style.css Zeile 633). Der Abstand nach oben war nie das Problem. */
+
+@media only screen and (max-width:767px) {
+
+  /* Enfold schaltet die Container hier auf 85% Breite ohne
+     Innenabstand um (grid.css, .responsive #top #wrap_all .container).
+     Das h1 folgt derselben Umschaltung, damit es bündig bleibt. */
+  body#top.single-post #main > h1.bk-post-h1 {
+    max-width:85%;
+    margin-bottom:12px;
+  }
+
+  /* Zusatzbefund, unabhängig vom h1: Unterhalb von 768px setzt Enfold
+     den Container auf padding-left:0. Das Child-Theme hebt die hängenden
+     -60px aber erst ab 480px auf (style.css Zeile 1122). Im Band zwischen
+     481px und 767px hängen deshalb ALLE h1 und h2 aller Beiträge 60px
+     aus dem Fenster und werden links beschnitten. Da unterhalb von 768px
+     kein Innenabstand mehr existiert, in den etwas hängen könnte, wird
+     der Versatz hier für den ganzen Bereich aufgehoben. */
+  body#top.single-post h1,
+  body#top.single-post h2 {
+    margin-left:0;
+  }
+}
+
+/* === Ende Ergänzung vom 26.08.2026 ========================== */
