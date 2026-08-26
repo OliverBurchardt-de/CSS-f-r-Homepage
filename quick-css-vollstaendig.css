@@ -3,12 +3,12 @@
    Einbau: Enfold → Allgemeine Formatierung → Quick CSS
    Diese Datei ersetzt die komplette bisherige Quick-CSS-Datei.
 
-   Stand: 02.08.2026, 6. Fassung
-   Änderung gegenüber der Vorversion: Der breite Abwehrblock
-   "RECHNER: ÜBERSCHRIFTEN IM RAHMEN HALTEN" ist durch eine
-   präzise Punktkorrektur ersetzt, nachdem die Ursache gefunden
-   wurde (Child-Theme ditax style.css, Zeile 628: hängende
-   Überschriften auf Beitragsseiten). Alles übrige unverändert.
+   Stand: 25.08.2026, 7. Fassung
+   Änderung gegenüber der Vorversion: Am Ende der Datei ist der
+   Block "BLOG: FAQ-ABSTÄNDE UND INTRO-SECTION" neu hinzugekommen.
+   Er korrigiert zwei Abstandsprobleme im Beitragslayout
+   (FAQ-Fragen kleben am Text darüber; zu große Lücke zwischen
+   Intro-Section und Inhaltsverzeichnis). Alles übrige unverändert.
    ============================================================ */
 
 /* ---- Datum-Hinweis unter Blogartikeln (z. B. "zuletzt aktualisiert am") ---- */
@@ -978,3 +978,103 @@ body #top .bk-kpa h2 {
   margin-left:0 !important;   /* neutralisiert die -60px aus dem Child-Theme innerhalb der Karte */
   margin-top:0 !important;    /* hebt zugleich den 2.75rem-Blogabstand auf: die Dachzeile darüber übernimmt die Trennung */
 }
+
+
+
+/* ============================================================
+   BLOG: FAQ-ABSTÄNDE UND INTRO-SECTION
+   Ergänzt am 25.08.2026 (7. Fassung).
+
+   Dieser Block steht bewusst ganz am Ende der Datei, damit er in
+   der Kaskade NACH dem Block "BLOGBEITRÄGE – Typografie und
+   Abstände" (ab 31.07.2026) greift. Jener Block setzt allen h3 im
+   Beitrag margin-top:1.75rem mit !important. Ohne !important und
+   ohne höhere Spezifität wäre hier nichts zu erreichen.
+
+   VORAUSSETZUNG IM BEITRAG – beide Klassen müssen gesetzt sein,
+   sonst greift keine der folgenden Regeln (Absicht: keine
+   Nebenwirkungen auf bestehende Seiten):
+     (1) einleitende av_section   → custom_class='bk-intro'
+     (2) FAQ-Section im Codeblock → class="bk-faq"
+   Gesetzt ist beides bislang nur in /familienheim-geplanter-einzug/.
+   ============================================================ */
+
+
+/* ---- (1) FAQ-Block: Abstand gehört über die Frage ----
+   Ausgangslage: Enfold und der Blogblock oben geben jeder h3
+   1,75rem Luft nach oben und 0,35rem nach unten. Im Fließtext
+   passt das. Im FAQ-Block nicht: Dort steht über jeder Frage kein
+   Zwischentext, sondern die vollständige Antwort auf die
+   vorherige Frage. Bei 1,75rem klebt die neue Frage optisch an
+   der alten Antwort und das Auge gruppiert falsch.
+
+   Der margin-bottom bleibt bewusst unangetastet bei 0,35rem:
+   Genau dieses Missverhältnis – viel Luft oben, wenig unten –
+   bindet die Frage an ihre eigene Antwort. */
+body.single-post #top .entry-content-wrapper section.bk-faq h3 {
+  margin-top:3rem !important;   /* rund das Doppelte des Fließtext-Werts; trennt Antwort und nächste Frage sichtbar */
+}
+
+/* Die erste Frage folgt direkt auf die h2-Überschrift des
+   FAQ-Blocks. Dort steht bereits deren Abstand; 3rem würden den
+   Block optisch aufreißen. :first-of-type trifft den ersten
+   Frage-Antwort-Wrapper innerhalb der Section. */
+body.single-post #top .entry-content-wrapper section.bk-faq > div:first-of-type h3 {
+  margin-top:1.5rem !important;   /* knapper Anschluss an die Blocküberschrift */
+}
+
+/* Der Antwort-Container bekommt keinen eigenen unteren Rand.
+   Der gesamte Abstand wird über die nächste Frage gesteuert,
+   sonst addieren sich zwei Werte unkontrolliert. */
+body.single-post #top .entry-content-wrapper section.bk-faq > div > div {
+  margin-bottom:0 !important;
+}
+
+
+/* ---- (2) Intro-Section: Abstand zur Trennlinie ----
+   Ausgangslage: Enfold summiert an dieser Stelle zwei Paddings.
+   Die avia-section bringt unten rund 50px mit, der von Enfold
+   automatisch erzeugte Folge-Container (#after_section_1) oben
+   noch einmal rund 50px. Dazu die 30px Marge der Trennlinie.
+   Ergebnis: rund 130px Leerraum vor dem Inhaltsverzeichnis. */
+
+/* Unteres Padding der Intro-Section auf ein ruhiges Maß bringen.
+   Der Pfad > .container > .content trifft genau den Enfold-Wrapper,
+   der das Padding trägt – nicht den Textblock darin. */
+body.single-post #top .bk-intro > .container > .content {
+  padding-bottom:20px !important;   /* statt rund 50px; !important, weil Enfold das Padding je nach Sectiontyp mehrfach setzt */
+}
+
+/* Der Folge-Container steht als Geschwister NACH der Section,
+   nicht darin. Der Nachbarschafts-Selektor + trifft genau diesen
+   einen Wrap und lässt alle anderen Container unberührt.
+   Das Padding oben entfällt vollständig; den verbleibenden
+   Abstand übernimmt die 30px-Marge der Trennlinie. */
+body.single-post #top .bk-intro + .av_default_container_wrap > .container > .content {
+  padding-top:0 !important;
+}
+
+
+/* ---- Mobile Anpassungen zu diesem Block ----
+   Der Blogblock oben reduziert h3 unter 640px auf 1,5rem. Ohne
+   eigene Regel fiele der FAQ-Block dort auf denselben Wert
+   zurück. 3rem sind bei schmaler Zeilenbreite zu viel Weißraum,
+   deshalb eine Stufe zurück – das Verhältnis bleibt gleich. */
+@media (max-width:640px){
+
+  body.single-post #top .entry-content-wrapper section.bk-faq h3 {
+    margin-top:2.25rem !important;
+  }
+
+  body.single-post #top .entry-content-wrapper section.bk-faq > div:first-of-type h3 {
+    margin-top:1.25rem !important;
+  }
+
+  /* Auf dem Handy fällt der Sprung zwischen Intro und
+     Inhaltsverzeichnis ohnehin kürzer aus; hier reicht weniger. */
+  body.single-post #top .bk-intro > .container > .content {
+    padding-bottom:10px !important;
+  }
+}
+
+/* === Ende Ergänzung vom 25.08.2026 ========================== */
